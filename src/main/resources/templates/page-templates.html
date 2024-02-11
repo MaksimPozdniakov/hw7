@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Spring Boot Security</title>
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar">
+        <h1 class="logo">Spring Boot Security</h1>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="/">Домой</a></li>
+            <li sec:authorize="hasRole('USER')" class="nav-item"><a href="/public-data">Кабинет пользователя</a></li>
+            <li sec:authorize="hasRole('USER')" class="nav-item"><a href="/login">Кабинет администратора</a></li>
+
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item"><a href="/private-data">Кабинет администратора</a></li>
+
+            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login">Вход</a></li>
+            <li sec:authorize="!isAuthenticated()" class="nav-item"><a href="/login">Кабинет администратора</a></li>
+
+            <li sec:authorize="isAuthenticated()" class="nav-item">
+                <form class="link" th:action="@{/logout}" method="post">
+                    <input class="link" type="submit" value="Выход"/>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</div>
+<div th:fragment="main-text"></div>
+<div th:fragment="footer">
+    <p class="center">&#169; Home Work №7</p>
+</div>
+</body>
+</html>
+
+
+
+
